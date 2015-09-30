@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -68,11 +69,6 @@ public class MainActivity extends BaseActivity {
 
         switch (id) {
             case R.id.dark_theme:
-                /* finish();
-                Intent intent = getIntent();
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                */
                 mIsDark = true;
                 putData(mIsDark);
                 break;
@@ -92,6 +88,11 @@ public class MainActivity extends BaseActivity {
 
         mPreferences = getSharedPreferences("theme", Context.MODE_PRIVATE);
         mPreferences.edit().putBoolean("isDark", isDark).commit();
-        recreate();
+        //recreate();
+        finish();
+        Intent intent = getIntent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
     }
 }
